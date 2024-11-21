@@ -8,37 +8,37 @@ const QueueContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 1.25rem;
   font-family: Arial, sans-serif;
-  max-width: 800px;
+  max-width: 50rem;
   margin: 0 auto;
 `;
 
 const Queue = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-gap: 10px;
-  grid-auto-rows: minmax(80px, auto);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  grid-gap: 0.625rem;
+  grid-auto-rows: minmax(5rem, auto);
+  gap: 0.625rem;
   justify-items: center;
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 10px;
-  max-width: 800px;
+  border: 0.125rem solid #333;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
+  max-width: 50rem;
   width: 100%;
-  min-height: 80px;
+  min-height: 5rem;
 `;
 
 const Action = styled.div<{ type: string }>`
-  width: 70px;
-  height: 70px;
+  width: 4.375rem;
+  height: 4.375rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: white;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background-color: ${(props) => {
     switch (props.type) {
       case 'A':
@@ -55,18 +55,18 @@ const Action = styled.div<{ type: string }>`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
   background-color: #333;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
 
   &:hover {
     background-color: #555;
@@ -80,17 +80,17 @@ const Button = styled.button`
 
 const CreditCounter = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 `;
 
 const CreditInfo = styled.div<{ type: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
   background-color: ${(props) => {
     switch (props.type) {
       case 'A':
