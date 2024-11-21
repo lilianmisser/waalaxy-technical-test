@@ -1,6 +1,8 @@
 import express from 'express';
-import { ACTION_TYPES, QueueService } from './services/QueueService';
 import cors from 'cors';
+import QueueService from './services/QueueService';
+import actionsRouter from './routes/actionsRouter';
+import stateRouter from './routes/stateRouter';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -14,38 +16,22 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-const actionsQueue = new QueueService();
+export const actionsQueueService = new QueueService();
 
 setInterval(() => {
   try {
-    actionsQueue.shift();
+    actionsQueueService.shift();
   } catch (error) {
     // eslint-disable-next-line no-console
   }
 }, 15 * 1000);
 
 setInterval(() => {
-  actionsQueue.recalculateCredits();
+  actionsQueueService.recalculateCredits();
 }, 10 * 60 * 1000);
 
-app.post('/actions', (req, res) => {
-  const action = req.body.action;
-
-  if (!action || typeof action !== 'string' || !ACTION_TYPES.includes(action)) {
-    return res.status(400).send({ message: 'Bad request' });
-  }
-
-  actionsQueue.enqueue(action);
-
-  res.status(200).json({});
-});
-
-app.get('/state', (_req, res) => {
-  return res.json({
-    actions: actionsQueue.getActions(),
-    credits: actionsQueue.getCredits(),
-  });
-});
+app.use('/actions', actionsRouter);
+app.use('/state', stateRouter);
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);

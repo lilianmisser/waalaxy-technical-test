@@ -1,12 +1,6 @@
-export const ACTION_TYPES = ['A', 'B', 'C'];
+import { ACTION_TYPES, MAX_CREDITS_TYPE } from './constants';
 
-const MAX_CREDITS_TYPE = {
-  A: 10,
-  B: 10,
-  C: 15,
-};
-
-export class QueueService {
+export default class QueueService {
   private queue: string[] = [];
   private credits: Map<string, number> = this.computeCredits();
 

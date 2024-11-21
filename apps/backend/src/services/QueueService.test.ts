@@ -1,4 +1,5 @@
-import { QueueService, ACTION_TYPES } from './QueueService';
+import { ACTION_TYPES } from './constants';
+import QueueService from './QueueService';
 
 describe('QueueService', () => {
   let queueService: QueueService;
