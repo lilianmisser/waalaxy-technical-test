@@ -110,7 +110,7 @@ export default function FifoQueue() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['state'],
     queryFn: getState,
-    staleTime: 2000,
+    refetchInterval: 2000,
   });
 
   useEffect(() => {
