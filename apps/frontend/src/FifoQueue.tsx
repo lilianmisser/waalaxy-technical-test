@@ -16,7 +16,7 @@ const QueueContainer = styled.div`
 
 const Queue = styled.div`
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-gap: 10px;
   grid-auto-rows: minmax(80px, auto);
   gap: 10px;
@@ -24,7 +24,8 @@ const Queue = styled.div`
   border: 2px solid #333;
   border-radius: 8px;
   padding: 10px;
-  min-width: 800px;
+  max-width: 800px;
+  width: 100%;
   min-height: 80px;
 `;
 
