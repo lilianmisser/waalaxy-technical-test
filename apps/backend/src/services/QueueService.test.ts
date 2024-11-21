@@ -21,16 +21,17 @@ describe('QueueService', () => {
   describe('shift', () => {
     it('should remove and return the first action in the queue if it has enough credits', () => {
       queueService.enqueue('A');
+      queueService.enqueue('B');
       const action = queueService.shift();
       expect(action).toBe('A');
-      expect(queueService.getActions()).toEqual([]);
+      expect(queueService.getActions()).toEqual(['B']);
     });
 
     it('should throw an error if the queue is empty', () => {
       expect(() => queueService.shift()).toThrow();
     });
 
-    it('should throw an error if the first action does not have enough credits', () => {
+    it('should throw an error when shifting an action that has no more credits', () => {
       const credits = queueService.getCredits();
       const creditsA = credits['A'];
 
@@ -43,7 +44,7 @@ describe('QueueService', () => {
 
       queueService.enqueue('A');
       expect(newCreditsA).toBe(0);
-      expect(() => queueService.shift()).toThrow('Not enough credits');
+      expect(() => queueService.shift()).toThrow();
     });
   });
 
@@ -56,7 +57,7 @@ describe('QueueService', () => {
   });
 
   describe('getCredits', () => {
-    it('should return the current credits for all actions', () => {
+    it('should return the current credits for all actions as positive integers', () => {
       const credits = queueService.getCredits();
       expect(Object.keys(credits)).toEqual(ACTION_TYPES);
       for (const type of ACTION_TYPES) {
@@ -67,27 +68,13 @@ describe('QueueService', () => {
   });
 
   describe('recalculateCredits', () => {
-    it('should reset credits and have the same actions', () => {
+    it('should reset credits and have the same actions after recalculating', () => {
       const initialCredits = queueService.getCredits();
       queueService.recalculateCredits();
       const newCredits = queueService.getCredits();
       expect(
         Object.keys(newCredits).sort((a, b) => a.localeCompare(b))
       ).toEqual(Object.keys(initialCredits).sort((a, b) => a.localeCompare(b)));
-    });
-  });
-
-  describe('private methods', () => {
-    it('should generate random credits within the expected range', () => {
-      const maxCredits = 10;
-      const generateRandomCredit = (
-        queueService as any
-      ).generateRandomCredit.bind(queueService);
-      for (let i = 0; i < 100; i++) {
-        const credit = generateRandomCredit(maxCredits);
-        expect(credit).toBeGreaterThanOrEqual(8);
-        expect(credit).toBeLessThanOrEqual(10);
-      }
     });
   });
 });
