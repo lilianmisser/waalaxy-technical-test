@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { addAction, getState } from './services/actions';
+import { addAction, getState } from '../services/actions';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect } from 'react';
 
